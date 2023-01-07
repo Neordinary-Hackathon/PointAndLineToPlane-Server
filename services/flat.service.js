@@ -1,18 +1,32 @@
-const {Line,Flat,LineToFlat} = require("../models");
-const kakaoService = require('./kakao.service.js');
-
+const {Line,Flat,LineToFlat, User, Dot} = require("../models");
+const axios = require("axios");
 
 const findMyLineContent = async (req,res,next)=>{
     let token = req.headers['authorization'];
     token = token.replace(/^Bearer\s+/, "");
-    const user = await kakaoService.findUserPk(token) // 카카오에서 aixos로 사용자 정보 가져오기
-    const lines = await Line.findAll({where:{
-            user_id:user
-        }});
-    if (lines.length === 0 || !lines){
-        return res.status(400).json({"message": "문장을 먼저 등록해주세요"});
-    }
-    return res.status(200).json({"lines": lines});
+    await axios({
+        method:'get',
+        url:'https://kapi.kakao.com/v1/user/access_token_info',
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    }).then(async (result)=>{
+        const resultId = String(result.data.id)
+        const isUser = await User.findOne({
+            where:{
+                unique_id:resultId
+            }
+        })
+        if(!isUser || typeof isUser === 'undefined'){}
+        const lines = await Line.findAll({where:{
+                user_id:isUser.user_id
+            }});
+        if (lines.length === 0 || !lines){
+            return res.status(400).json({"message": "문장을 먼저 등록해주세요"});
+        }
+        return res.status(200).json({"lines": lines});
+    })
+
 }
 
 
@@ -21,20 +35,34 @@ const saveFlatContent = async (req, res, next)=>{
     const line_id_list = line_id.split(' ')
     let token = req.headers['authorization'];
     token = token.replace(/^Bearer\s+/, "");
-    const user = await kakaoService.findUserPk(token) // 카카오에서 aixos로 사용자 정보 가져오기
-
-    const newFlat = await Flat.create({
-        user_id:user,
-        flat_content:flat_content
-    })
-    for(let idx in line_id_list){
-        await LineToFlat.create({
-            flat_id : newFlat.flat_id,
-            line_id:Number(line_id_list[idx])
+    await axios({
+        method:'get',
+        url:'https://kapi.kakao.com/v1/user/access_token_info',
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    }).then(async (result)=>{
+        const resultId = String(result.data.id)
+        const isUser = await User.findOne({
+            where:{
+                unique_id:resultId
+            }
         })
-    }
+        if(!isUser || typeof isUser === 'undefined'){}
+        const newFlat = await Flat.create({
+            user_id:isUser.user_id,
+            flat_content:flat_content
+        })
+        for(let idx in line_id_list){
+            await LineToFlat.create({
+                flat_id : newFlat.flat_id,
+                line_id:Number(line_id_list[idx])
+            })
+        }
 
-    return res.status(200).json({"message": newFlat});
+        return res.status(200).json({"message": newFlat});
+    })
+
 
 }
 
