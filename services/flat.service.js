@@ -18,8 +18,7 @@ const findMyLineContent = async (req,res,next)=>{
 
 const saveFlatContent = async (req, res, next)=>{
     const {flat_content, line_id} = req.body;
-    const line_id_list = [...line_id]
-    console.log(line_id, line_id_list)
+    const line_id_list = line_id.split(' ')
     let token = req.headers['authorization'];
     token = token.replace(/^Bearer\s+/, "");
     const user = await kakaoService.findUserPk(token) // 카카오에서 aixos로 사용자 정보 가져오기
