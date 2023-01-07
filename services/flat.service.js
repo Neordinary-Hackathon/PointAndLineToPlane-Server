@@ -28,10 +28,10 @@ const saveFlatContent = async (req, res, next)=>{
         user_id:user,
         flat_content:flat_content
     })
-    for(let id in line_id_list){
+    for(let idx in line_id_list){
         await LineToFlat.create({
             flat_id : newFlat.flat_id,
-            line_id:Number(line_id_list[id])
+            line_id:Number(line_id_list[idx])
         })
     }
 

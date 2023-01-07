@@ -1,6 +1,5 @@
 const {Line,Dot,DotToLine} = require("../models");
 const kakaoService = require('./kakao.service.js');
-const {NUMBER} = require("sequelize");
 
 const findMyDotContent = async (req,res,next)=>{
     let token = req.headers['authorization'];
@@ -27,12 +26,10 @@ const saveLineContent = async (req, res, next)=>{
         user_id:user,
         line_content:line_content
     })
-    for(let id in dot_id_list){
-        console.log(id)
-        id = Number(id)
+    for(let idx in dot_id_list){
         await DotToLine.create({
             line_id : newLine.line_id,
-            dot_id:id
+            dot_id:Number(dot_id_list[idx])
         })
     }
 
