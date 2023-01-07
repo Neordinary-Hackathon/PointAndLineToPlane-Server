@@ -7,6 +7,8 @@ const User = require('./user.model')(sequelize);
 const Flat = require('./flat.model')(sequelize);
 const Line = require('./line.model')(sequelize);
 const Dot = require('./dot.model')(sequelize);
+const LineToFlat = require('./lineToFlat.model')(sequelize);
+const DotToLine = require('./dotToLine.model')(sequelize)
 
 
 // User : Flat ==> 1:n
@@ -23,12 +25,12 @@ Dot.belongsTo(User,{foreignKey: 'user_id'});
 
 
 // dot:Line => n:m
-Dot.belongsToMany(Line,{through:'DotToLine'});
-Line.belongsToMany(Dot,{through:'DotToLine'});
+Dot.belongsToMany(Line,{through:DotToLine});
+Line.belongsToMany(Dot,{through:DotToLine});
 
 // Line:Flat => n:m
-Line.belongsToMany(Flat,{through:'LineToFlat'});
-Flat.belongsToMany(Line,{through:'LineToFlat'});
+Line.belongsToMany(Flat,{through:LineToFlat});
+Flat.belongsToMany(Line,{through:LineToFlat});
 
 const db = {};
 db.sequelize = sequelize;
@@ -37,6 +39,8 @@ db.User = User;
 db.Line = Line;
 db.Dot = Dot;
 db.Flat = Flat;
+db.DotToLine = DotToLine;
+db.LineToFlat = LineToFlat
 
 
 module.exports = db;
