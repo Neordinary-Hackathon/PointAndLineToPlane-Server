@@ -1,9 +1,11 @@
 const {Dot, User} = require('../models/index');
 const axios = require("axios");
+const {LineToFlat} = require("../models");
 
 
 const saveDotContent = async (req, res, next)=>{
     const dot_content = req.body.dot_content;
+    const dots_list = dot_content.split(' ')
     console.log(dot_content)
     let token = req.headers['authorization'];
     token = token.replace(/^Bearer\s+/, "");
@@ -21,11 +23,14 @@ const saveDotContent = async (req, res, next)=>{
             }
         })
         if(!isUser || typeof isUser === 'undefined'){}
-        const newDot = await Dot.create({
-            user_id:isUser.user_id,
-            dot_content:dot_content
-        })
-        return res.status(200).json({"message": newDot});
+        for(let idx in dots_list){
+            const newDot = await Dot.create({
+                user_id:isUser.user_id,
+                dot_content:dots_list[idx]
+            })
+        }
+
+        return res.status(200).json({"message": "저장 완료"});
         })
 }
 
