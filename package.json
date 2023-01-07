@@ -1,0 +1,21 @@
+{
+  "name": "pointandlinetoplane-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neordinary-Hackathon/PointAndLineToPlane-Server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Neordinary-Hackathon/PointAndLineToPlane-Server/issues"
+  },
+  "homepage": "https://github.com/Neordinary-Hackathon/PointAndLineToPlane-Server#readme",
+  "dependencies": {
+  }
+}
