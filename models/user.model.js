@@ -7,15 +7,21 @@ const User = (sequelize) => sequelize.define('Users',{
         autoIncrement:true,
         primaryKey:true
     },
+    unique_id:{
+        type:DataTypes.STRING,
+        allowNull:false
+    },
     nickname:{
         type:DataTypes.STRING,
         allowNull:false
     },
     gender:{
+        defaultValue:null,
         type:DataTypes.STRING,
         allowNull:true
     },
     age:{
+        defaultValue:null,
         type:DataTypes.INTEGER,
         allowNull:true
     }
