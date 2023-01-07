@@ -2,7 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const dotenv = require('dotenv');
 const {sequelize} = require('./models');
-
+const dotRoute = require('./api/routes/dot.route')
 dotenv.config();
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(express.static('public'));
 app.use(logger('dev'));
 app.use(express.json());
 
-//app.use('/users', usersRouter);
+app.use('/dot', dotRoute);
 
 
 app.use((err, req, res, next) => {
