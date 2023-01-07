@@ -10,4 +10,8 @@ router.post('/', (req, res, next) => {
     flatService.saveFlatContent(req, res, next);
 });
 
+router.get('/all', (req, res, next) => {
+    flatService.allFlat(req, res, next);
+});
+
 module.exports = router;
