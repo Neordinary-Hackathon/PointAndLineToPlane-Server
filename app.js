@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const {sequelize} = require('./models');
 const dotRoute = require('./api/routes/dot.route')
 const lineRoute = require('./api/routes/line.route')
+const flatRoute = require('./api/routes/flat.route')
 dotenv.config();
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(express.json());
 
 app.use('/dot', dotRoute);
 app.use('/line', lineRoute);
+app.use('/flat', flatRoute);
 
 
 app.use((err, req, res, next) => {
