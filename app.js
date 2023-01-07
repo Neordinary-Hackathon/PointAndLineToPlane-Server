@@ -8,6 +8,13 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT
 
+sequelize.sync({force:true})
+    .then(() => {
+        console.log('success connecting database');
+    })
+    .catch((err) => {
+        console.log('fail connecting database > ',err);
+    });
 
 app.use(express.static('public'));
 app.use(logger('dev'));
