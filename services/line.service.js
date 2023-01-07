@@ -16,7 +16,31 @@ const findMyDotContent = async (req,res,next)=>{
 }
 
 
+const saveLineContent = async (req, res, next)=>{
+    const {line_content, dot_id} = req.body;
+    const dot_id_list = [...dot_id]
+    let token = req.headers['authorization'];
+    token = token.replace(/^Bearer\s+/, "");
+    const user = await kakaoService.findUserPk(token) // 카카오에서 aixos로 사용자 정보 가져오기
+
+    const newLine = await Line.create({
+        user_id:user,
+        line_content:line_content
+    })
+    for(let id in dot_id_list){
+        console.log(id)
+        id = Number(id)
+        await DotToLine.create({
+            line_id : newLine.line_id,
+            dot_id:id
+        })
+    }
+
+    return res.status(200).json({"message": newLine});
+
+}
 
 module.exports = {
     findMyDotContent,
+    saveLineContent
 }
