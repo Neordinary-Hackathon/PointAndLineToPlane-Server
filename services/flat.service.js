@@ -18,8 +18,7 @@ const findMyLineContent = async (req,res,next)=>{
 
 const saveFlatContent = async (req, res, next)=>{
     const {flat_content, line_id} = req.body;
-    const line_id_list = [...line_id]
-    console.log(line_id, line_id_list)
+    const line_id_list = line_id.split(' ')
     let token = req.headers['authorization'];
     token = token.replace(/^Bearer\s+/, "");
     const user = await kakaoService.findUserPk(token) // 카카오에서 aixos로 사용자 정보 가져오기
@@ -28,10 +27,10 @@ const saveFlatContent = async (req, res, next)=>{
         user_id:user,
         flat_content:flat_content
     })
-    for(let id in line_id_list){
+    for(let idx in line_id_list){
         await LineToFlat.create({
             flat_id : newFlat.flat_id,
-            line_id:Number(line_id_list[id])
+            line_id:Number(line_id_list[idx])
         })
     }
 
