@@ -24,6 +24,11 @@ const User = (sequelize) => sequelize.define('Users',{
         defaultValue:null,
         type:DataTypes.INTEGER,
         allowNull:true
+    },
+    introduction:{
+        defaultValue:"나를 표현하는 한줄 소개를 입력해주세요",
+        type:DataTypes.STRING,
+        allowNull:true
     }
 },{
     timestamps: false

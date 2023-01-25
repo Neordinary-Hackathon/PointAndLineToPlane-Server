@@ -13,6 +13,6 @@ const Line = (sequelize) => sequelize.define('Lines',{
     }
 },{
     timestamps: false
-});
+}); 
 
 module.exports = Line;

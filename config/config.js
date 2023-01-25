@@ -2,7 +2,7 @@ const path = require('path');
 require('dotenv').config();
 
 const development = {
-    username: "postgres",
+    username: process.env.POSTGRESQL_USERNAME,
     password: process.env.POSTGRESQL_PASSWORD,
     database: process.env.POSTGRESQL_DATABASE,
     host: process.env.POSTGRESQL_HOST,
