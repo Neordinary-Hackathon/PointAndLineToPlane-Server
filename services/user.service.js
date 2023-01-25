@@ -1,13 +1,33 @@
 const kakaoService = require('./kakao.service')
 
-const register = async (req,res,next)=>{
-    let token = req.headers['authorization'];
-    token = token.replace(/^Bearer\s+/, "");
 
-    const {newUserId} = kakaoService.findUserPk(token)
-    return res.status(200).json({"message":`WELCOME!`})
+
+const viewMyInfo = async (req,res,next)=>{
+    let token = util.converter(req.headers['authorization']);
+    const id = await kakaoService.loginOrRegisteOrFindPk(token)
+    const myInfo = await User.findOne({
+        where:{
+            user_id:id
+        }
+    });
+    res.status(200).json({myInfo})
+}
+
+const updateMyInfo = async (req,res,next)=>{
+    let token = util.converter(req.headers['authorization']);
+    const id = await kakaoService.loginOrRegisteOrFindPk(token)
+    const myInfo = await User.update(
+        {
+
+        },{
+            where:{
+                user_id:id
+            }
+        });
+    res.status(200).json({myInfo})
 }
 
 module.exports = {
-    register
+    viewMyInfo,
+    updateMyInfo
 }
