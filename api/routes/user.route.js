@@ -8,7 +8,13 @@ router.post('/auth', (req, res, next) => {
     kakaoService.getToken(req, res, next);
 });
 router.post('/register', (req, res, next) => {
-    userService.loginOrRegister(req, res, next);
+    kakaoService.loginOrRegisterOrFindPk(req, res, next);
 });
+
+router.post('/my-page', (req, res, next) => {
+    return userService.updateMyInfo(req, res, next);
+});
+
+
 
 module.exports = router;
