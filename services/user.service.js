@@ -45,17 +45,19 @@ const findMyWriteCount = async (id)=>{
     })
 }
 const updateMyInfo = async (req,res,next)=>{
+    const {nickname, introduce} = req.body;
     let token = util.converter(req.headers['authorization']);
-    const id = await kakaoService.loginOrRegisteOrFindPk(token)
+    const id = await kakaoService.loginOrRegisterOrFindPk(token)
     const myInfo = await User.update(
         {
-
+            nickname,
+            introduce
         },{
             where:{
                 user_id:id
             }
         });
-    res.status(200).json({myInfo})
+    res.status(200).json({message:"변경되었습니다."})
 }
 
 module.exports = {

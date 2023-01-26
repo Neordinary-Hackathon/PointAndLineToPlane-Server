@@ -11,6 +11,9 @@ router.post('/register', (req, res, next) => {
     kakaoService.loginOrRegisterOrFindPk(req, res, next);
 });
 
+router.get('/my-page', (req, res, next) => {
+    return userService.viewMyInfo(req, res, next);
+});
 router.post('/my-page', (req, res, next) => {
     return userService.updateMyInfo(req, res, next);
 });
