@@ -6,6 +6,7 @@ const dotRoute = require('./api/routes/dot.route')
 const lineRoute = require('./api/routes/line.route')
 const flatRoute = require('./api/routes/flat.route')
 const userRoute = require('./api/routes/user.route')
+const archivingRoute = require('./api/routes/archiving.route')
 const authenticate = require('./api/middleware/auth.middleware')
 dotenv.config();
 
@@ -28,6 +29,7 @@ app.use('/',userRoute);
 app.use('/dot', authenticate,dotRoute);
 app.use('/line',authenticate, lineRoute);
 app.use('/flat',authenticate, flatRoute);
+app.use('/archiving',authenticate,archivingRoute)
 
 
 
