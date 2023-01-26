@@ -2,12 +2,12 @@ const path = require('path');
 require('dotenv').config();
 
 const development = {
-  username: process.env.POSTGRESQL_USERNAME,
-  password: process.env.POSTGRESQL_PASSWORD,
-  database: process.env.POSTGRESQL_DATABASE,
-  host: process.env.POSTGRESQL_HOST,
-  port: process.env.POSTGRESQL_PORT,
-  dialect: 'postgres',
+  username: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_DATABASE,
+  host: process.env.DATABASE_HOST,
+  port: process.env.DATABASE_PORT,
+  dialect: 'mysql',
   operatorAliases: false,
 };
 
