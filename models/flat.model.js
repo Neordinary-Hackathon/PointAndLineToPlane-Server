@@ -12,7 +12,7 @@ const Flat = (sequelize) => sequelize.define('Flats',{
         allowNull:false
     }
 },{
-    timestamps: false
+    timestamps: true
 });
 
 module.exports = Flat;

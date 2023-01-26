@@ -12,7 +12,7 @@ const Line = (sequelize) => sequelize.define('Lines',{
         allowNull:false
     }
 },{
-    timestamps: false
+    timestamps: true
 }); 
 
 module.exports = Line;

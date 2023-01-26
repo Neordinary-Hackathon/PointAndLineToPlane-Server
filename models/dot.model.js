@@ -12,7 +12,7 @@ const Dot = (sequelize) => sequelize.define('Dots',{
         allowNull:false
     }
 },{
-    timestamps: false
+    timestamps: true
 });
 
 module.exports = Dot;
