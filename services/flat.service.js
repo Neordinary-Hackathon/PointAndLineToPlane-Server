@@ -20,7 +20,7 @@ const saveFlatContent = async (req, res, next)=> {
     const {flat_content, line_id} = req.body;
     const line_id_list = line_id.split(' ')
     let token = util.converter(req.headers['authorization']);
-    const id = await kakaoService.loginOrRegisteOrFindPk(token);
+    const id = await kakaoService.loginOrRegisterOrFindPk(token);
     const newFlat = await Flat.create({
         user_id: id,
         flat_content: flat_content
@@ -35,7 +35,7 @@ const saveFlatContent = async (req, res, next)=> {
 }
 const allFlat = async (req,res,next)=>{
     let token = util.converter(req.headers['authorization']);
-    const id = await kakaoService.loginOrRegisteOrFindPk(token);
+    const id = await kakaoService.loginOrRegisterOrFindPk(token);
     const flats = await Flat.findAll({
         where:{
             user_id:id

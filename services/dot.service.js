@@ -7,7 +7,7 @@ const saveDotContent = async (req, res, next)=>{
     const dot_content = req.body.dot_content;
     const dots_list = dot_content.split(' ')
     let token =util.converter(req.headers['authorization']);
-    const id =await kakaoService.loginOrRegisteOrFindPk(token)
+    const id =await kakaoService.loginOrRegisterOrFindPk(token)
     for(let idx in dots_list){
         await Dot.create({
             user_id:id,
