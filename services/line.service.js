@@ -5,7 +5,7 @@ const kakaoService = require("./kakao.service");
 
 const findMyDotContent = async (req,res,next)=>{
     let token =util.converter(req.headers['authorization']);
-    const id =await kakaoService.loginOrRegisteOrFindPk(token)
+    const id =await kakaoService.loginOrRegisterOrFindPk(token)
     const dots = await Dot.findAll({where:{
             user_id:id
         }});
@@ -20,7 +20,7 @@ const saveLineContent = async (req, res, next)=>{
     const {line_content, dot_id} = req.body;
     const dot_id_list = dot_id.split(' ')
     let token = util.converter(req.headers['authorization']);
-    const id = await kakaoService.loginOrRegisteOrFindPk(token)
+    const id = await kakaoService.loginOrRegisterOrFindPk(token)
     const newLine = await Line.create({
         user_id:id,
         line_content:line_content

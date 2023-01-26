@@ -16,13 +16,15 @@ const getToken = async (req,res,next)=>{
     })
 }
 
-const loginOrRegisteOrFindPk = async (token) =>{
+const loginOrRegisterOrFindPk = async (token) =>{
     const result = await axios({
         method:'get',
         url:'https://kapi.kakao.com/v2/user/me',
         headers:{
             Authorization: `Bearer ${token}`
         }
+    }).catch((e)=>{
+        throw new Error(e);
     })
     const resultId = String(result.data.id)
     const isUser = await User.findOne({
@@ -46,6 +48,6 @@ const loginOrRegisteOrFindPk = async (token) =>{
 
 
 module.exports = {
-    loginOrRegisteOrFindPk,
+    loginOrRegisterOrFindPk,
     getToken,
     }
