@@ -5,7 +5,7 @@ const kakaoService = require('./kakao.service');
 
 const findMyLineContent = async (req, res, next) => {
   let token = util.converter(req.headers['authorization']);
-  const id = await kakaoService.loginOrRegisteOrFindPk(token);
+  const id = await kakaoService.loginOrRegisterOrFindPk(token);
   const lines = await Line.findAll({
     where: {
       user_id: id,
