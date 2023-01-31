@@ -2,7 +2,7 @@ require('dotenv').config();
 const { User } = require('../models');
 const axios = require('axios');
 const kakaoTokenURL = `${process.env.KAKAO_BASEURL}token?grant_type=authorization_code&client_id=${process.env.KAKAO_RESTAPI_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}`;
-console.log(kakaoTokenURL);
+//console.log(kakaoTokenURL);
 
 const getToken = async (req, res, next) => {
   const code = req.body.code;
